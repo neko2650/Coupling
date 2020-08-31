@@ -1,0 +1,5 @@
+here the OpenFOAM end time is not provided in controlDict we need to end manually
+
+press ctrl+c to end the simulation
+
+To check the forces use 'forcesplot.txt' and to compare it with the previous simulation "displacement provided in dynamicMeshDict file" use 'forces_output.txt' (use comparisonPlot.m)

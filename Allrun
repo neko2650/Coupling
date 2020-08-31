@@ -1,0 +1,31 @@
+
+#!/bin/sh
+cd ${0%/*} || exit 1    # Run from this directory
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+m4 system/blockMeshDict.m4 > system/blockMeshDict
+runApplication blockMesh
+runApplication setFields
+_1='signalFromStructSolver.dat'; #receive signal from matlab
+_2='log.interFoam'
+filename1=$_1;
+while true
+do
+if [ -f "$filename1" ]
+then # If file exists then run interFoam
+echo "received signal from matlab running interFOAM"
+runApplication $(getApplication)
+wait
+sleep 1
+python3.6 forcedat1.py
+rm -r "$_1"
+rm -r "$_2"
+echo "1" > signalFromOpenFoam.dat
+else
+echo "waiting for matlab"
+fi
+done
+
+
+#------------------------------------------------------------------------------
