@@ -1,1 +1,0 @@
-[stat, cmdOut] = system('./gen6DoF.sh')
